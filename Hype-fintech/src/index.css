@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #2563EB;
+  --color-brand-cyan: #06B6D4;
+  --color-brand-dark: #142141;
+  --color-brand-card: #111827;
+  --font-sans: "Outfit", sans-serif;
+
+  /* Global Spacing Variables */
+  --container-px: 1.25rem;
+  --section-py: 4rem;
+}
+
+@media (min-width: 640px) {
+  @theme {
+    --container-px: 2.5rem;
+    --section-py: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  @theme {
+    --container-px: 5rem;
+    --section-py: 8rem;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-brand-dark);
+    color: #f1f5f9;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom utility for the specific text gradient used in HYPE */
+@layer utilities {
+  .text-gradient-hype {
+    background: linear-gradient(135deg, var(--color-brand-cyan), var(--color-brand-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-hype {
+    background: linear-gradient(135deg, var(--color-brand-cyan), var(--color-brand-blue));
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(11, 17, 32, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .container-padding {
+    padding-left: var(--container-px);
+    padding-right: var(--container-px);
+  }
+
+  .section-padding {
+    padding-top: var(--section-py);
+    padding-bottom: var(--section-py);
+  }
+}

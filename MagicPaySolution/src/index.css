@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #050B14;
+  --color-navy-900: #0A1128;
+  --color-navy-800: #1C2541;
+  --color-navy-700: #3A506B;
+  --color-royal-600: #1D4ED8;
+  --color-royal-500: #2563EB;
+  --color-royal-400: #60A5FA;
+  --color-accent-blue: #0052FF;
+  --color-accent-teal: #0D9488;
+  --color-accent-cyan: #06B6D4;
+  --color-accent-emerald: #10B981;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html, body {
+  font-family: 'Inter', var(--font-sans);
+  background-color: #FFFFFF;
+  color: #0F172A;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom digital fintech pattern background using solid lines */
+.fintech-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+}
+
+.fintech-grid-pattern-dark {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Dots pattern for a neat techy grid */
+.tech-dots {
+  background-size: 20px 20px;
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+}
+
+.tech-dots-dark {
+  background-size: 20px 20px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Custom Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+  }
+}
+
+@keyframes loadingBar {
+  0% {
+    width: 0%;
+    opacity: 1;
+  }
+  50% {
+    width: 60%;
+  }
+  100% {
+    width: 100%;
+    opacity: 0.9;
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  opacity: 0;
+  animation: slideInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s infinite;
+}
+
+.animate-loading-bar {
+  animation: loadingBar 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered Delay Utilities */
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Custom border glow and outline styles for enterprise feel (no gradients) */
+.premium-border {
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.premium-border-dark {
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+/* Soft solid shadows */
+.premium-shadow {
+  box-shadow: 0 4px 20px -2px rgba(10, 17, 40, 0.02), 0 2px 8px -1px rgba(10, 17, 40, 0.01);
+}
+
+.premium-shadow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-shadow-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px -4px rgba(10, 17, 40, 0.06), 0 6px 16px -2px rgba(10, 17, 40, 0.03);
+}
+
+/* Scrollbar customizations */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E2E8F0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #CBD5E1;
+}
