@@ -1,68 +1,121 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Shield, Globe, Cpu, CreditCard, Lock } from 'lucide-react';
+import { ArrowDownCircle, ArrowUpCircle, Zap, Wallet, Link2, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const featuresData = [
+const servicesData = [
   {
-    icon: <Zap className="w-6 h-6 text-brand-cyan" />,
-    title: "Instant Transfers",
-    description: "Move money across the globe in milliseconds. No more waiting for days to clear funds."
+    icon: <ArrowDownCircle className="w-6 h-6 text-[#3267D6]" />,
+    title: "Payment Collection (Pay In)",
+    description: "Accept customer payments across India with dynamic UPI QR codes, debit/credit cards, and 50+ net banking channels.",
+    tag: "Collections",
+    link: "/services"
   },
   {
-    icon: <Shield className="w-6 h-6 text-brand-blue" />,
-    title: "Bank-Grade Security",
-    description: "Enterprise-level encryption and continuous fraud monitoring keeping your capital safe."
+    icon: <ArrowUpCircle className="w-6 h-6 text-[#3267D6]" />,
+    title: "Business Disbursements (Pay Out)",
+    description: "Automate payouts to vendor bank accounts or beneficiary UPI IDs using direct 24x7 IMPS and NEFT rails.",
+    tag: "Disbursements",
+    link: "/services"
   },
   {
-    icon: <Globe className="w-6 h-6 text-brand-cyan" />,
-    title: "Global Reach",
-    description: "Accept payments and send payouts to over 150 countries with a single integration."
+    icon: <Zap className="w-6 h-6 text-amber-600" />,
+    title: "Bill Payments & Recharge (BBPS)",
+    description: "Integrated with the Bharat Bill Payment System for electricity, water, DTH, broadband, and mobile recharges with instant receipts.",
+    tag: "BBPS Network",
+    link: "/services"
   },
   {
-    icon: <Cpu className="w-6 h-6 text-brand-blue" />,
-    title: "Smart API",
-    description: "Developer-first infrastructure designed for reliability, scalability, and ease of use."
+    icon: <Wallet className="w-6 h-6 text-[#3267D6]" />,
+    title: "Merchant Ledger Wallet",
+    description: "A centralized business wallet to manage inflows, disburse funds, and monitor real-time transaction statements.",
+    tag: "Accounts",
+    link: "/services"
   },
   {
-    icon: <CreditCard className="w-6 h-6 text-brand-cyan" />,
-    title: "Virtual Cards",
-    description: "Instantly issue virtual cards to your team or customers for streamlined spending."
+    icon: <Link2 className="w-6 h-6 text-[#3267D6]" />,
+    title: "Instant Payment Links",
+    description: "Create and share branded payment links via WhatsApp, SMS, or email for quick and friction-free remote collections.",
+    tag: "Invoicing",
+    link: "/services"
   },
   {
-    icon: <Lock className="w-6 h-6 text-brand-blue" />,
-    title: "Compliance Built-in",
-    description: "We handle KYC, AML, and regulatory requirements so you can focus on building."
+    icon: <ShieldCheck className="w-6 h-6 text-emerald-600" />,
+    title: "Security & Settlement Tracking",
+    description: "Encrypted data transmission, multi-factor merchant controls, and clear transparent settlement timelines.",
+    tag: "Protection",
+    link: "/services"
   }
 ];
 
 const Features = () => {
   return (
-    <section id="features" className="section-padding relative z-10 bg-brand-dark/50">
+    <section id="services-section" className="section-padding bg-white border-b border-[#E5E9F0]">
       <div className="container-padding mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6 text-white">Built for <span className="text-brand-cyan">Performance</span></h2>
-          <p className="text-lg text-slate-400">
-            Everything you need to manage your financial operations on a global scale, packed into one powerful platform.
-          </p>
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
+          >
+            <div className="badge-fintech mb-3">Service Portfolio</div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0B1730] mb-3">
+              Comprehensive Financial Utilities for Everyday Business
+            </h2>
+            <p className="text-base text-[#667085] leading-relaxed">
+              Organized into clear categories to address real merchant and enterprise transaction needs without unnecessary complexity.
+            </p>
+          </motion.div>
+
+          <Link 
+            to="/services" 
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#3267D6] hover:text-[#2558C7] transition-all group shrink-0"
+          >
+            <span>View all solutions</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuresData.map((feature, index) => (
+        {/* Staggered Animated Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {servicesData.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-brand-card/50 backdrop-blur-sm border border-white/5 p-8 rounded-3xl hover:border-brand-cyan/30 transition-colors group"
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              className="bg-white border border-[#E5E9F0] rounded-2xl p-6 sm:p-7 shadow-sm hover:shadow-lg hover:border-[#3267D6]/40 transition-all flex flex-col justify-between group"
             >
-              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-white/10 transition-all">
-                {feature.icon}
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] flex items-center justify-center group-hover:bg-[#EEF4FF] group-hover:scale-105 transition-all">
+                    {service.icon}
+                  </div>
+                  <span className="text-[11px] font-semibold text-[#667085] bg-[#F7F8FA] px-2.5 py-1 rounded-full border border-[#E5E9F0]">
+                    {service.tag}
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-[#0B1730] mb-2.5 group-hover:text-[#3267D6] transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-[#667085] leading-relaxed mb-6">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
-              <p className="text-slate-400 leading-relaxed font-light">
-                {feature.description}
-              </p>
+
+              <Link
+                to={service.link}
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3267D6] group-hover:gap-2.5 transition-all pt-4 border-t border-[#E5E9F0]"
+              >
+                <span>Learn More</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           ))}
         </div>

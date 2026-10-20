@@ -1,39 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ShieldCheck } from 'lucide-react';
 
-const companies = [
-  "Acme Corp", "GlobalTech", "Nexus", "Quantum", "Stark Ind.", "Wayne Ent.", 
-  "Cyberdyne", "Massive Dynamic", "Initech", "Soylent", "Umbrella Corp", "MomCorp"
+const paymentRails = [
+  { name: "UPI 2.0 & QR", badge: "Instant" },
+  { name: "Bharat BillPay (BBPS)", badge: "Official" },
+  { name: "IMPS Payouts", badge: "24x7" },
+  { name: "RuPay Cards", badge: "Direct" },
+  { name: "NEFT & RTGS", badge: "Bank Rails" },
+  { name: "Visa & Mastercard", badge: "Global" },
+  { name: "50+ Net Banking", badge: "Supported" },
 ];
 
 const CompanyTicker = () => {
   return (
-    <div className="w-full bg-brand-dark border-y border-white/5 py-8 overflow-hidden relative">
-      {/* Gradient masks for smooth fading edges */}
-      <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none" />
-      <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none" />
+    <div className="w-full bg-white border-y border-[#E5E9F0] py-5 sm:py-6 overflow-hidden">
+      <div className="container-padding mx-auto mb-3">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#667085]">
+          <ShieldCheck className="w-4 h-4 text-[#3267D6]" />
+          <span>Supported Indian Payment Rails & Networks</span>
+        </div>
+      </div>
 
-      <p className="text-center text-sm font-semibold text-slate-500 mb-6 tracking-widest uppercase">
-        Powering payments for industry leaders
-      </p>
-
-      <div className="flex w-fit">
-        {/* Double the array to ensure smooth infinite looping */}
+      {/* Infinite Smooth Rail Ticker */}
+      <div className="flex w-full overflow-hidden mask-gradient">
         <motion.div
-          animate={{ x: "-50%" }}
+          animate={{ x: ["0%", "-50%"] }}
           transition={{
-            duration: 80,
+            duration: 25,
             repeat: Infinity,
             ease: "linear",
           }}
-          className="flex whitespace-nowrap"
+          className="flex gap-4 shrink-0 whitespace-nowrap pl-4"
         >
-          {[...companies, ...companies].map((company, index) => (
+          {[...paymentRails, ...paymentRails, ...paymentRails].map((rail, index) => (
             <div 
               key={index} 
-              className="mx-8 lg:mx-16 text-xl md:text-2xl font-black text-slate-700 hover:text-brand-cyan transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] text-xs font-semibold text-[#182338] shadow-xs hover:border-[#3267D6]/40 hover:bg-[#EEF4FF] transition-all cursor-default group"
             >
-              {company}
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3267D6] group-hover:scale-125 transition-transform" />
+              <span>{rail.name}</span>
+              <span className="text-[10px] font-bold text-[#3267D6] bg-white border border-[#D7E3FC] px-1.5 py-0.5 rounded-md">
+                {rail.badge}
+              </span>
             </div>
           ))}
         </motion.div>

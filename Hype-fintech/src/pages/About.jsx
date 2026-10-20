@@ -1,142 +1,158 @@
 import React from 'react';
-import AnimatedGradientBox from '../components/AnimatedGradientBox';
 import { motion } from 'framer-motion';
-import { Shield, Zap, Globe, Users, CheckCircle, Target } from 'lucide-react';
+import { Layers, Headphones, FileText, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
-    <div className="relative min-h-screen section-padding mt-10">
-      <AnimatedGradientBox />
-      <div className="container-padding mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center mb-16"
-        >
-          <span className="inline-block py-1 px-3 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan text-sm font-semibold mb-6 tracking-wide">
-            OUR MISSION
-          </span>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6">
-            Building the <span className="text-gradient-hype">financial infrastructure</span> of tomorrow.
-          </h1>
-          <p className="text-xl text-slate-300 font-light leading-relaxed">
-            HYPE was founded on a simple principle: moving money should be as seamless, instant, and borderless as sending an email. We are on a mission to democratize enterprise-grade financial technology.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12 items-center mt-24">
+    <div className="min-h-screen pt-28 pb-20 bg-[#F7F8FA]">
+      <div className="container-padding mx-auto">
+        
+        {/* Header */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="badge-fintech mb-3">Our Mission & Approach</div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1730] mb-4 tracking-tight">
+              About Hype-Pay
+            </h1>
+            <p className="text-base sm:text-lg text-[#667085] leading-relaxed">
+              Simplifying financial workflows and providing dependable Indian payment utilities for modern businesses and merchants.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Narrative Section */}
+        <div className="grid lg:grid-cols-2 gap-10 items-center mb-16 max-w-5xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white border border-[#E5E9F0] rounded-2xl p-8 sm:p-10 shadow-sm"
           >
-            <h2 className="text-3xl font-bold mb-6">Built by developers, for the world.</h2>
-            <p className="text-slate-400 mb-6 leading-relaxed">
-              Before HYPE, our founders struggled with legacy payment processors that were slow, opaque, and hard to integrate. We decided to build the platform we wished existed.
+            <h2 className="text-2xl font-bold text-[#0B1730] mb-4">
+              A Practical Approach to Business Payments
+            </h2>
+            <p className="text-sm sm:text-base text-[#667085] leading-relaxed mb-4">
+              Everyday businesses face unnecessary friction when managing separate tools for collecting UPI payments, disbursing vendor payouts, and handling utility bills.
             </p>
-            <p className="text-slate-400 leading-relaxed">
-              Today, we process billions of dollars perfectly engineered to handle the complexities of global commerce—so you can focus on building your core product.
+            <p className="text-sm sm:text-base text-[#667085] leading-relaxed mb-4">
+              Hype-Pay was built to bring these core financial utilities into one straightforward, dependable platform. We emphasize practical operations, clear statements, and responsive support.
+            </p>
+            <p className="text-sm sm:text-base text-[#667085] leading-relaxed">
+              Our goal is not to overwhelm you with unnecessary features, but to ensure that every rupee collected or disbursed is accounted for accurately.
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 gap-4"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-4"
           >
-            <div className="bg-brand-card/50 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center">
-              <div className="text-4xl font-black text-white mb-2">2018</div>
-              <div className="text-sm text-slate-400">Founded</div>
+            <div className="bg-white border border-[#E5E9F0] rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#3267D6]/30 transition-all">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#EEF4FF] flex items-center justify-center shrink-0">
+                  <Layers className="w-5 h-5 text-[#3267D6]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#0B1730] mb-1">Unified Financial Workflow</h3>
+                  <p className="text-xs sm:text-sm text-[#667085] leading-relaxed">
+                    Consolidate UPI QR collections, IMPS bank payouts, and BBPS utility bills under a single merchant ledger.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="bg-brand-card/50 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center">
-              <div className="text-4xl font-black text-white mb-2">400+</div>
-              <div className="text-sm text-slate-400">Team Members</div>
+
+            <div className="bg-white border border-[#E5E9F0] rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#3267D6]/30 transition-all">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#EEF4FF] flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5 text-[#3267D6]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#0B1730] mb-1">Clear Auditability</h3>
+                  <p className="text-xs sm:text-sm text-[#667085] leading-relaxed">
+                    Transparent transaction records with automated receipts and UTR numbers for easy bookkeeping.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="bg-brand-card/50 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center">
-              <div className="text-4xl font-black text-white mb-2">12</div>
-              <div className="text-sm text-slate-400">Global Offices</div>
-            </div>
-            <div className="bg-brand-card/50 backdrop-blur-sm border border-white/5 p-8 rounded-3xl text-center">
-              <div className="text-4xl font-black text-white mb-2">₹50B</div>
-              <div className="text-sm text-slate-400">Processed Volume</div>
+
+            <div className="bg-white border border-[#E5E9F0] rounded-xl p-6 shadow-sm hover:shadow-md hover:border-[#3267D6]/30 transition-all">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#EEF4FF] flex items-center justify-center shrink-0">
+                  <Headphones className="w-5 h-5 text-[#3267D6]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#0B1730] mb-1">Real Operational Support</h3>
+                  <p className="text-xs sm:text-sm text-[#667085] leading-relaxed">
+                    Accessible customer communication when questions arise regarding transaction status or settlements.
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Core Values Section */}
-        <div className="mt-32">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Our Core Values</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">The principles that guide every feature we ship and every decision we make as a company.</p>
+        {/* Guiding Principles */}
+        <div className="max-w-5xl mx-auto mb-16">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl font-bold text-[#0B1730] mb-2">Our Operating Values</h2>
+            <p className="text-sm text-[#667085]">The core principles that shape our product decisions and service quality.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: <Shield className="w-6 h-6 text-brand-blue" />, title: "Security First", desc: "We protect billions in transaction volume. Security isn't a feature; it's our foundation." },
-              { icon: <Zap className="w-6 h-6 text-brand-cyan" />, title: "Velocity", desc: "Money should move at the speed of the internet. We eliminate friction at every step." },
-              { icon: <Globe className="w-6 h-6 text-emerald-400" />, title: "Borderless By Default", desc: "We build for a global economy, ensuring our tools work seamlessly across 150+ countries." },
-              { icon: <Users className="w-6 h-6 text-purple-400" />, title: "Developer Obsession", desc: "Our APIs are designed to be loved. We prioritize clear documentation and intuitive design." },
-              { icon: <Target className="w-6 h-6 text-orange-400" />, title: "Reliability", desc: "Five nines isn't just a goal, it's a promise. We architect for maximum redundancy." },
-              { icon: <CheckCircle className="w-6 h-6 text-pink-400" />, title: "Transparency", desc: "No hidden fees, no opaque algorithms. We believe in clear, honest partnerships." }
-            ].map((value, i) => (
+              {
+                title: "Clarity Over Jargon",
+                desc: "We believe financial tools should be intuitive to use. Clear labels, straightforward steps, and transparent pricing."
+              },
+              {
+                title: "Reliable Standards",
+                desc: "Direct adherence to established payment rails (UPI, IMPS, BBPS) to ensure high transaction success rates."
+              },
+              {
+                title: "Customer First",
+                desc: "Listening to merchant feedback and continuously refining features so business operations remain smooth."
+              }
+            ].map((val, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-brand-card/30 border border-white/5 p-8 rounded-3xl hover:bg-brand-card/60 transition-colors"
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-[#3267D6]/30 transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-slate-800/50 flex items-center justify-center mb-6 border border-white/5">
-                  {value.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{value.title}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm">{value.desc}</p>
+                <h3 className="text-base font-bold text-[#0B1730] mb-2">{val.title}</h3>
+                <p className="text-xs sm:text-sm text-[#667085] leading-relaxed">{val.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Leadership Section */}
-        <div className="mt-32 border-t border-white/10 pt-24 mb-20 text-center">
-          <span className="inline-block py-1 px-3 rounded-full bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold uppercase mb-6 tracking-wider">
-            Leadership
-          </span>
-          <h2 className="text-3xl md:text-4xl font-black mb-16">Built by industry veterans.</h2>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { name: "Aditi Rao", role: "Chief Executive Officer", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop" },
-              { name: "Sameer Khan", role: "Chief Technology Officer", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop" },
-              { name: "Rohan Kumar", role: "Head of Global Ops", img: "https://images.unsplash.com/photo-1589386417686-0d34b5903d23?w=150&h=150&fit=crop" },
-              { name: "Rahul Iyer", role: "Chief Security Officer", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop" }
-            ].map((leader, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group"
-              >
-                <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-brand-card relative">
-                  <div className="absolute inset-0 bg-brand-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                  <img
-                    src={leader.img}
-                    alt={leader.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <h4 className="text-lg font-bold text-white">{leader.name}</h4>
-                <p className="text-brand-cyan text-sm">{leader.role}</p>
-              </motion.div>
-            ))}
+        {/* Contact Strip */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto bg-white border border-[#E5E9F0] rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm"
+        >
+          <div>
+            <h3 className="text-lg font-bold text-[#0B1730] mb-1">Have questions or want to partner?</h3>
+            <p className="text-xs sm:text-sm text-[#667085]">Get in touch with our team to discuss your business requirements.</p>
           </div>
-        </div>
+          <Link to="/contact" className="fintech-btn-primary shrink-0 text-sm flex items-center gap-2 group">
+            <span>Get in Touch</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
 
       </div>
     </div>

@@ -1,173 +1,259 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Activity, ArrowUpRight, DollarSign, Wallet, IndianRupee } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  ArrowRight, ShieldCheck, CheckCircle2, ArrowUpRight, ArrowDownRight, 
+  Zap, QrCode, Building, Clock, ChevronRight
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
+  const [activeTab, setActiveTab] = useState('payin'); // payin, payout, bbps
+
   return (
-    <section className="relative section-padding overflow-hidden mt-20">
+    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden bg-gradient-to-b from-[#FFFFFF] via-[#F7F8FA] to-[#F7F8FA]">
       <div className="container-padding mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Text Content */}
+          {/* Left Column: Typography & CTAs (7 cols) */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center lg:text-left relative"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 text-center lg:text-left"
           >
-            {/* Floating Tags (Desktop) */}
-            <motion.div 
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="hidden lg:flex absolute -top-12 left-20 items-center gap-2 bg-brand-card border border-white/10 px-4 py-2 rounded-full shadow-lg"
-            >
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-              <span className="text-xs font-bold text-slate-300">Zero Fraud Guarantee</span>
-            </motion.div>
+            {/* Trust Pill with Live Pulse Animation */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF4FF] border border-[#D7E3FC] text-[#3267D6] text-xs font-semibold mb-6 shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3267D6] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3267D6]"></span>
+              </span>
+              <span>Reliable Indian Fintech Infrastructure</span>
+            </div>
 
-            <motion.div 
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="hidden lg:flex absolute top-32 -right-8 items-center gap-2 bg-brand-card border border-white/10 px-4 py-2 rounded-full shadow-lg z-20"
-            >
-              <Activity className="w-3 h-3 text-brand-cyan" />
-              <span className="text-xs font-bold text-slate-300">Instant Settlement</span>
-            </motion.div>
-
-            <span className="inline-block py-1 px-3 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan text-sm font-semibold mb-6 tracking-wide">
-              MONEY MADE SIMPLE
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-8 leading-tight relative">
-              The easiest way to <span className="text-brand-cyan">pay and get paid</span> worldwide.
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-[#0B1730] tracking-tight leading-[1.16] mb-6">
+              Payment Solutions That <span className="text-[#3267D6]">Move Business Forward</span>
             </h1>
-            <p className="mt-4 text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed font-light">
-              Send money, manage cards, and grow your business with the platform used by millions. Simple, fast, and secure.
+
+            {/* Description */}
+            <p className="text-base sm:text-lg text-[#667085] max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed font-normal">
+              Explore business-focused payment solutions designed to simplify financial workflows and make everyday operations easier to manage.
             </p>
             
-            <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-12">
-              <Link to="/dashboard" className="px-8 py-4 rounded-full bg-gradient-hype text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all flex items-center gap-2 group">
-                Start Building Now
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-3.5 mb-10">
+              <Link 
+                to="/contact" 
+                className="w-full sm:w-auto fintech-btn-primary flex items-center justify-center gap-2 group text-base shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+              >
+                <span>Get in Touch</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
-              <Link to="/services" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 transition-colors flex items-center gap-2">
-                View Services
+              <Link 
+                to="/services" 
+                className="w-full sm:w-auto fintech-btn-secondary flex items-center justify-center gap-2 text-base hover:bg-slate-50 transition-colors"
+              >
+                <span>Explore Services</span>
               </Link>
             </div>
 
-            {/* Trusted By / User Avatars */}
-            <div className="flex items-center justify-center lg:justify-start gap-4">
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className={`w-10 h-10 rounded-full border-2 border-brand-dark bg-slate-800 flex items-center justify-center relative overflow-hidden`}>
-                    <img 
-                      src={`https://i.pravatar.cc/100?img=${i * 10}`} 
-                      alt={`User ${i}`} 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
+            {/* Key Differentiators Strip with Micro-hover */}
+            <div className="pt-6 border-t border-[#E5E9F0] grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0">
+              <div className="group cursor-default">
+                <div className="text-lg md:text-xl font-bold text-[#0B1730] group-hover:text-[#3267D6] transition-colors">UPI & QR</div>
+                <div className="text-xs text-[#667085] mt-0.5">Instant Collections</div>
               </div>
-              <div className="text-sm text-slate-400">
-                Trusted by <span className="text-white font-bold">10,000+</span> innovative teams
+              <div className="group cursor-default">
+                <div className="text-lg md:text-xl font-bold text-[#0B1730] group-hover:text-[#3267D6] transition-colors">IMPS Rails</div>
+                <div className="text-xs text-[#667085] mt-0.5">Automated Payouts</div>
+              </div>
+              <div className="group cursor-default">
+                <div className="text-lg md:text-xl font-bold text-[#0B1730] group-hover:text-[#3267D6] transition-colors">BBPS Certified</div>
+                <div className="text-xs text-[#667085] mt-0.5">All Utility Billers</div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Floating UI Elements */}
+          {/* Right Column: Interactive Relatable Fintech Widget (5 cols) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative h-[500px] hidden lg:block"
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 max-w-md mx-auto lg:max-w-none w-full"
           >
-            {/* Main Balance Card */}
-            <motion.div 
-              animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-10 right-10 w-80 bg-brand-card/80 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl z-20"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-brand-blue/20 flex items-center justify-center">
-                    <Wallet className="w-4 h-4 text-brand-blue" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-300">Total Balance</span>
-                </div>
-                <Activity className="w-5 h-5 text-brand-cyan" />
-              </div>
-              <div className="text-4xl font-black text-white mb-2">₹124,592.00</div>
-              <div className="flex items-center gap-2 text-sm">
-                <span className="text-emerald-400 flex items-center bg-emerald-400/10 px-2 py-0.5 rounded-full">
-                  <ArrowUpRight className="w-3 h-3 mr-1" /> +14.5%
-                </span>
-                <span className="text-slate-500">vs last month</span>
-              </div>
-            </motion.div>
-
-            {/* Quick Transfer Card */}
-            <motion.div 
-              animate={{ y: [10, -10, 10] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-20 left-10 w-64 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-5 shadow-2xl z-30"
-            >
-              <div className="text-sm font-medium text-slate-300 mb-4">Quick Transfer</div>
-              <div className="flex items-center justify-between bg-black/40 rounded-2xl p-3 mb-4 border border-white/5">
-                <div className="flex items-center gap-3">
-                  <img src="https://i.pravatar.cc/100?img=44" alt="Alex" className="w-10 h-10 rounded-full" />
-                  <div>
-                    <div className="text-sm font-bold text-white">Alex M.</div>
-                    <div className="text-xs text-slate-500">Designer</div>
+            <div className="bg-white rounded-2xl border border-[#E5E9F0] shadow-[0_12px_40px_rgba(11,23,48,0.08)] p-6 sm:p-7 relative transition-all duration-300 hover:shadow-[0_16px_50px_rgba(11,23,48,0.12)]">
+              
+              {/* Header: Business Wallet Summary & Status */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#E5E9F0]">
+                <div>
+                  <div className="text-[11px] font-bold text-[#667085] uppercase tracking-wider">Business Ledger</div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-[#0B1730] mt-0.5 tracking-tight">
+                    ₹ 1,48,250.00
                   </div>
                 </div>
-                <div className="text-brand-cyan font-bold">Send</div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 bg-black/40 rounded-full py-2 px-4 border border-white/5 flex items-center">
-                  <IndianRupee className="w-4 h-4 text-slate-400 mr-1" />
-                  <input type="text" placeholder="0.00" className="bg-transparent w-full text-white text-lg font-bold outline-none" defaultValue="450" />
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  <span>Settlement Active</span>
                 </div>
-                <button className="w-12 h-12 rounded-full bg-gradient-hype flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-                  <ArrowRight className="w-5 h-5 text-white" />
-                </button>
               </div>
-            </motion.div>
 
-            {/* Decorative elements */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-cyan/5 rounded-full blur-[100px] -z-10" />
-            <motion.div 
-               animate={{ rotate: 360 }}
-               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-               className="absolute top-0 right-0 w-64 h-64 border border-white/5 rounded-full border-dashed"
-            />
+              {/* Interactive Service Switcher Tabs */}
+              <div className="py-4">
+                <div className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider mb-2">
+                  Interactive Service Preview
+                </div>
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#F7F8FA] rounded-xl border border-[#E5E9F0]">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('payin')}
+                    className={`py-2 px-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                      activeTab === 'payin'
+                        ? 'bg-white text-[#3267D6] shadow-sm'
+                        : 'text-[#667085] hover:text-[#0B1730]'
+                    }`}
+                  >
+                    <QrCode className="w-3.5 h-3.5" />
+                    <span>Pay In</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('payout')}
+                    className={`py-2 px-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                      activeTab === 'payout'
+                        ? 'bg-white text-[#3267D6] shadow-sm'
+                        : 'text-[#667085] hover:text-[#0B1730]'
+                    }`}
+                  >
+                    <Building className="w-3.5 h-3.5" />
+                    <span>Pay Out</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('bbps')}
+                    className={`py-2 px-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 ${
+                      activeTab === 'bbps'
+                        ? 'bg-white text-amber-700 shadow-sm'
+                        : 'text-[#667085] hover:text-[#0B1730]'
+                    }`}
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>BBPS</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Dynamic Preview Content with Smooth Transition */}
+              <div className="min-h-[140px]">
+                <AnimatePresence mode="wait">
+                  {activeTab === 'payin' && (
+                    <motion.div
+                      key="tab-payin"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                      className="p-4 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] space-y-3"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                            <ArrowDownRight className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-[#0B1730]">UPI Dynamic QR Collection</div>
+                            <div className="text-[11px] text-[#667085]">Instant credit via GPay / PhonePe / Paytm</div>
+                          </div>
+                        </div>
+                        <span className="text-xs font-extrabold text-emerald-700">+₹ 4,500.00</span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] pt-2 border-t border-[#E5E9F0] text-[#667085]">
+                        <span>NPCI Ref: 4092819201</span>
+                        <span className="text-emerald-600 font-semibold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Auto Settled T+0
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeTab === 'payout' && (
+                    <motion.div
+                      key="tab-payout"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                      className="p-4 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] space-y-3"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-blue-100 text-[#3267D6] flex items-center justify-center shrink-0">
+                            <ArrowUpRight className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-[#0B1730]">Vendor IMPS Disbursement</div>
+                            <div className="text-[11px] text-[#667085]">Sharma Logistics Ltd • Direct Bank Rail</div>
+                          </div>
+                        </div>
+                        <span className="text-xs font-extrabold text-[#0B1730]">-₹ 12,300.00</span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] pt-2 border-t border-[#E5E9F0] text-[#667085]">
+                        <span>Bank UTR: 409281928374</span>
+                        <span className="text-blue-600 font-semibold flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" /> Direct Credited
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeTab === 'bbps' && (
+                    <motion.div
+                      key="tab-bbps"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                      className="p-4 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] space-y-3"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                            <Zap className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-[#0B1730]">Electricity Utility Bill</div>
+                            <div className="text-[11px] text-[#667085]">Tata Power Delhi (TPDDL)</div>
+                          </div>
+                        </div>
+                        <span className="text-xs font-extrabold text-[#0B1730]">-₹ 1,840.00</span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] pt-2 border-t border-[#E5E9F0] text-[#667085]">
+                        <span>BBPS Ref: BBPS-0094857</span>
+                        <span className="text-amber-700 font-semibold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Receipt Ready
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Bottom Quick Link */}
+              <div className="mt-4 pt-3 border-t border-[#E5E9F0] flex items-center justify-between">
+                <span className="text-[11px] text-[#667085]">Want these payment rails for your business?</span>
+                <Link to="/contact" className="text-xs font-bold text-[#3267D6] hover:underline flex items-center gap-0.5">
+                  Contact Us <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+            </div>
           </motion.div>
 
         </div>
-
-        {/* Stats Row */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 lg:mt-32 grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto border-t border-white/10 pt-10"
-        >
-          <div className="flex flex-col items-center lg:items-start">
-            <span className="text-4xl font-black text-white mb-2">12M+</span>
-            <span className="text-slate-400 text-sm">Transactions/sec</span>
-          </div>
-          <div className="flex flex-col items-center lg:items-start">
-             <span className="text-4xl font-black text-white mb-2">99.9%</span>
-             <span className="text-slate-400 text-sm">Uptime SLA</span>
-          </div>
-          <div className="flex flex-col items-center lg:items-start">
-             <span className="text-4xl font-black text-white mb-2">150+</span>
-             <span className="text-slate-400 text-sm">Countries Supported</span>
-          </div>
-          <div className="flex flex-col items-center lg:items-start">
-             <span className="text-4xl font-black text-white mb-2">₹0</span>
-             <span className="text-slate-400 text-sm">Setup Fees</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

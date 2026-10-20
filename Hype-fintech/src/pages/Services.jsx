@@ -1,218 +1,245 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Globe, CreditCard, Code, ShieldCheck, Banknote, 
-  LineChart, Hash, ArrowDownCircle, ArrowUpCircle,
-  Zap, ChevronRight, CheckCircle2
+  ArrowDownCircle, ArrowUpCircle, Zap, Wallet, 
+  Link2, ShieldCheck, ArrowRight, Check
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 
-const servicesData = [
+const allServices = [
   {
-    icon: <ArrowDownCircle className="w-8 h-8 text-brand-cyan" />,
-    title: "Pay In",
-    description: "Accept payments from your customers seamlessly with multiple payment options. Integrated with multi-acquirer waterfall logic for maximum success rates.",
+    id: "collections",
+    category: "collections",
+    icon: <ArrowDownCircle className="w-7 h-7 text-[#3267D6]" />,
+    title: "Payment Collection (Pay In)",
+    description: "Accept customer payments across India with dynamic UPI QR codes, debit/credit cards, and all major Indian net banking portals.",
     subFeatures: [
-      "UPI & QR Payments (v3.0)",
-      "Card Networks (Visa, MC, RuPay)",
-      "99.99% Node Availability",
-      "Instant Settlement (T+0)"
+      "Dynamic & Static UPI QR codes",
+      "RuPay, Visa & Mastercard support",
+      "Instant payment confirmation",
+      "Direct merchant bank settlements"
     ],
-    link: "/pay-in",
-    color: "brand-cyan"
+    tag: "Collections"
   },
   {
-    icon: <ArrowUpCircle className="w-8 h-8 text-brand-blue" />,
-    title: "Pay Out",
-    description: "Automate your disbursements and send money to any bank account or wallet. Built on direct bank IMPS/NEFT integrations for sub-second latency.",
+    id: "payouts",
+    category: "payouts",
+    icon: <ArrowUpCircle className="w-7 h-7 text-[#3267D6]" />,
+    title: "Business Disbursements (Pay Out)",
+    description: "Send single or recurring payouts directly to vendor bank accounts or beneficiary UPI IDs with automated validation.",
     subFeatures: [
-      "Bulk Payouts via REST API",
-      "Signature-verified Webhooks",
-      "Idempotent API Design",
-      "Smart Refund Re-routing"
+      "Direct 24x7 IMPS bank transfers",
+      "Beneficiary UPI ID payouts",
+      "Vendor and salary disbursements",
+      "Clear status logs and UTR records"
     ],
-    link: "/pay-out",
-    color: "brand-blue"
+    tag: "Disbursements"
   },
   {
-    icon: <Hash className="w-8 h-8 text-emerald-400" />,
-    title: "BBPS",
-    description: "Official BBPS Operating Unit integration. Connect to the Bharat Bill Payment System for all utility billing needs with automated bill fetch.",
+    id: "bbps",
+    category: "bbps",
+    icon: <Zap className="w-7 h-7 text-amber-600" />,
+    title: "Utility Bill Payments (BBPS)",
+    description: "Official BBPS connection offering utility bill collection and recharges for electricity, water, gas, broadband, and DTH providers.",
     subFeatures: [
-      "20,000+ Billers Live",
-      "Auto-Fetch Bill Scraper",
-      "Digital Receipt Generation",
-      "PCI-DSS v3.2.1 Certified"
+      "National BBPS biller network",
+      "Instant bill fetch by consumer ID",
+      "Digital receipt generation",
+      "Prepaid mobile & DTH recharge"
     ],
-    link: "/bbps",
-    color: "emerald-400"
+    tag: "BBPS Network"
   },
   {
-    icon: <CreditCard className="w-8 h-8 text-brand-cyan" />,
-    title: "Card Issuing",
-    description: "Launch your own virtual or physical card program with granular, real-time spending controls and dynamic auth hooks.",
+    id: "wallet",
+    category: "enterprise",
+    icon: <Wallet className="w-7 h-7 text-[#3267D6]" />,
+    title: "Merchant Ledger Wallet",
+    description: "A centralized operational wallet to manage collections, fund payouts, and track daily financial closures.",
     subFeatures: [
-      "Virtual Card API Forge",
-      "Just-in-Time (JIT) Funding",
-      "Custom BIN Ranges Available",
-      "Auth-stream Enrichment"
+      "Single consolidated balance",
+      "Real-time debit & credit ledger",
+      "Downloadable transaction statements",
+      "Role-based access controls"
     ],
-    link: "#",
-    color: "brand-cyan"
+    tag: "Accounts"
   },
   {
-    icon: <Code className="w-8 h-8 text-brand-blue" />,
-    title: "Payment APIs",
-    description: "State-of-the-art developer platform. Highly reliable, scalable APIs designed to be integrated in minutes with comprehensive documentation.",
+    id: "links",
+    category: "collections",
+    icon: <Link2 className="w-7 h-7 text-[#3267D6]" />,
+    title: "Quick Payment Links",
+    description: "Generate shareable payment links to collect payments remotely via SMS, WhatsApp, or email without requiring an e-commerce website.",
     subFeatures: [
-      "gRPC & REST Support",
-      "SDKs in 6 Core Languages",
-      "Deterministic Sandboxing",
-      "Real-time Error Telemetry"
+      "Custom payment link creation",
+      "Pre-filled amount & customer notes",
+      "Real-time payment alerts",
+      "Automatic expiration settings"
     ],
-    link: "#",
-    color: "brand-blue"
+    tag: "Remote Pay"
   },
   {
-    icon: <ShieldCheck className="w-8 h-8 text-emerald-400" />,
-    title: "Compliance",
-    description: "Bank-grade security and full regulatory compliance out of the box. Automated KYC/AML pipelines and AI-driven risk mitigation.",
+    id: "compliance",
+    category: "enterprise",
+    icon: <ShieldCheck className="w-7 h-7 text-emerald-600" />,
+    title: "Security & Settlement Protocols",
+    description: "Structured transaction verification, data encryption, and transparent fee policies for business peace of mind.",
     subFeatures: [
-      "SOC2 Type II Compliant",
-      "ML-based Transaction Guard",
-      "Frictionless KYC Flow",
-      "Data Residency Guarantee"
+      "256-bit encrypted data transit",
+      "Multi-step verification safeguards",
+      "Detailed audit logs for every rupee",
+      "Responsive customer support desk"
     ],
-    link: "#",
-    color: "emerald-400"
+    tag: "Security"
   }
 ];
 
-const Services = () => {
-  const [showNotification, setShowNotification] = React.useState(false);
-  const [activeService, setActiveService] = React.useState('');
+const categories = [
+  { id: "all", name: "All Solutions" },
+  { id: "collections", name: "Collections" },
+  { id: "payouts", name: "Disbursements" },
+  { id: "bbps", name: "BBPS Utilities" },
+  { id: "enterprise", name: "Enterprise Rails" },
+];
 
-  const handleServiceClick = (e, title, link) => {
-    if (link === "#") {
-      e.preventDefault();
-      setActiveService(title);
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
-    }
-  };
+const Services = () => {
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filteredServices = activeCategory === "all" 
+    ? allServices 
+    : allServices.filter(s => s.category === activeCategory);
 
   return (
-    <div className="min-h-screen section-padding mt-10 relative overflow-hidden bg-brand-dark">
-      {/* Toast Notification */}
-      <AnimatePresence>
-        {showNotification && (
-          <motion.div
-            initial={{ opacity: 0, y: 50, x: "-50%" }}
-            animate={{ opacity: 1, y: 0, x: "-50%" }}
-            exit={{ opacity: 0, y: 20, x: "-50%" }}
-            className="fixed bottom-10 left-1/2 z-50 px-6 py-3 bg-brand-blue border border-white/20 rounded-2xl shadow-2xl flex items-center gap-3 backdrop-blur-xl"
-          >
-            <Zap className="w-5 h-5 text-brand-cyan animate-pulse" />
-            <span className="text-white font-bold">{activeService} is launching soon!</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Background visual accents */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-cyan/10 rounded-full blur-[150px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-blue/10 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '2s' }} />
-      </div>
-
-      <div className="container-padding mx-auto relative z-10">
+    <div className="min-h-screen pt-28 pb-20 bg-[#F7F8FA]">
+      <div className="container-padding mx-auto">
         
-        <div className="text-center max-w-4xl mx-auto mb-20">
+        {/* Header with Animation */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
-              <Zap className="w-4 h-4 text-brand-cyan" />
-              <span className="text-xs font-bold tracking-widest text-slate-300 uppercase">Operational Excellence</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tight">
-              Enterprise <br />
-              <span className="text-gradient-hype">Fintech Solutions</span>
+            <div className="badge-fintech mb-3">Service Catalog</div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B1730] mb-4 tracking-tight">
+              Business Payment Services
             </h1>
-            <p className="text-xl text-slate-400 font-light leading-relaxed max-w-2xl mx-auto">
-              Powering the next generation of financial services with real-time settlement 
-              networks and bank-grade security infrastructure.
+            <p className="text-base sm:text-lg text-[#667085] leading-relaxed">
+              Explore our structured suite of payment solutions built to simplify collection, payout, and utility bill operations.
             </p>
           </motion.div>
         </div>
 
-        {/* Real-time Metrics Banner */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-20"
-        >
-          {[
-            { label: "Platform Uptime", value: "99.99%", detail: "All Regions" },
-            { label: "API Latency", value: "85ms", detail: "P99 Response" },
-            { label: "Peak Throughput", value: "50k+", detail: "TPM (Transactions)" },
-            { label: "Settlement Time", value: "T+0", detail: "Standard Window" }
-          ].map((stat, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-              <div className="text-xs text-slate-500 font-bold uppercase mb-2 tracking-widest">{stat.label}</div>
-              <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-brand-cyan font-medium">{stat.detail}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {servicesData.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative"
+        {/* Interactive Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                activeCategory === cat.id
+                  ? 'bg-[#3267D6] text-white shadow-sm'
+                  : 'bg-white text-[#667085] border border-[#E5E9F0] hover:border-[#3267D6] hover:text-[#0B1730]'
+              }`}
             >
-              {/* Card Decoration */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-cyan/20 to-brand-blue/20 rounded-[2.5rem] blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-              
-              <div className="relative h-full bg-slate-900/80 backdrop-blur-xl border border-white/10 p-10 rounded-[2.5rem] hover:bg-slate-900/40 transition-all flex flex-col">
-                <div className="w-20 h-20 rounded-3xl bg-black/40 flex items-center justify-center mb-8 border border-white/5 group-hover:scale-110 group-hover:border-brand-cyan/30 transition-all duration-500">
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-3xl font-bold mb-4 text-white group-hover:text-brand-cyan transition-colors">{service.title}</h3>
-                <p className="text-slate-400 leading-relaxed font-light mb-8 flex-grow">
-                  {service.description}
-                </p>
+              {cat.name}
+            </button>
+          ))}
+        </div>
 
-                <div className="space-y-4 mb-10">
-                  {service.subFeatures.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <CheckCircle2 className={`w-5 h-5 text-brand-cyan/60`} />
-                      <span className="text-sm text-slate-300 font-medium">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link 
-                  to={service.link}
-                  onClick={(e) => handleServiceClick(e, service.title, service.link)}
-                  className="inline-flex items-center gap-2 text-white font-bold group/link hover:text-brand-cyan transition-colors"
-                >
-                  Explore {service.title} 
-                  <ChevronRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
-              </div>
+        {/* Practical Features Bar */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
+          {[
+            { label: "Payment Rails", value: "UPI, IMPS, BBPS", desc: "Native Indian standards" },
+            { label: "Availability", value: "24x7 Processing", desc: "Round-the-clock payouts" },
+            { label: "Receipts", value: "Instant Proof", desc: "Automated confirmations" },
+            { label: "Support", value: "Dedicated Helpdesk", desc: "Operational assistance" }
+          ].map((item, i) => (
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="bg-white border border-[#E5E9F0] rounded-xl p-5 shadow-xs"
+            >
+              <div className="text-xs font-bold text-[#667085] uppercase tracking-wider mb-1">{item.label}</div>
+              <div className="text-lg font-extrabold text-[#0B1730] mb-0.5">{item.value}</div>
+              <div className="text-xs text-[#3267D6] font-medium">{item.desc}</div>
             </motion.div>
           ))}
         </div>
+
+        {/* Animated Filtered Services Grid */}
+        <motion.div 
+          layout
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
+        >
+          <AnimatePresence>
+            {filteredServices.map((service) => (
+              <motion.div
+                layout
+                key={service.id}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.3 }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="bg-white border border-[#E5E9F0] rounded-2xl p-6 sm:p-7 shadow-sm hover:shadow-lg hover:border-[#3267D6]/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] flex items-center justify-center group-hover:scale-105 group-hover:bg-[#EEF4FF] transition-all">
+                      {service.icon}
+                    </div>
+                    <span className="text-xs font-semibold text-[#667085] bg-[#F7F8FA] px-2.5 py-1 rounded-full border border-[#E5E9F0]">
+                      {service.tag}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-[#0B1730] mb-2.5 group-hover:text-[#3267D6] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-[#667085] leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+
+                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#E5E9F0]">
+                    {service.subFeatures.map((feat, i) => (
+                      <div key={i} className="flex items-center gap-2.5 text-xs text-[#182338] font-medium">
+                        <Check className="w-4 h-4 text-[#3267D6] shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link 
+                  to="/contact"
+                  className="inline-flex items-center justify-between w-full py-2.5 px-4 rounded-xl bg-[#F7F8FA] border border-[#E5E9F0] hover:bg-[#EEF4FF] hover:border-[#3267D6] text-sm font-semibold text-[#182338] hover:text-[#3267D6] transition-all group/link"
+                >
+                  <span>Inquire About This Service</span>
+                  <ArrowRight className="w-4 h-4 text-[#667085] group-hover/link:text-[#3267D6] group-hover/link:translate-x-1 transition-all" />
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Consultation Callout with Animation */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-white border border-[#E5E9F0] rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm"
+        >
+          <div>
+            <h3 className="text-xl font-bold text-[#0B1730] mb-1.5">Need a custom payment setup for your business?</h3>
+            <p className="text-sm text-[#667085]">Our team can help configure the right combination of collection and disbursement rails.</p>
+          </div>
+          <Link to="/contact" className="fintech-btn-primary shrink-0 text-sm shadow-sm hover:shadow-md transition-all">
+            Contact Our Business Desk
+          </Link>
+        </motion.div>
 
       </div>
     </div>

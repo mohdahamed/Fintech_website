@@ -1,157 +1,134 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { LogOut, LayoutDashboard, User, Menu, X } from 'lucide-react';
-import logo from '../assets/Logo2.png';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import BrandLogo from './BrandLogo';
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    setIsDropdownOpen(false);
-    setIsMobileMenuOpen(false);
-    navigate('/');
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
-    { name: 'Features', path: '/features' },
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Testimonials', path: '/testimonials' },
-    { name: 'About', path: '/about' },
+    { name: 'Features', path: '/features' },
+    { name: 'Merchant Stories', path: '/testimonials' },
     { name: 'Contact', path: '/contact' },
   ];
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const isActive = (path) => {
+    if (path === '/' && location.pathname !== '/') return false;
+    return location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
+  };
+
   return (
-    <nav className="fixed w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/10">
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_20px_rgba(11,23,48,0.06)] border-b border-[#E5E9F0]' 
+          : 'bg-white/80 backdrop-blur-sm border-b border-[#E5E9F0]/60'
+      }`}
+    >
       <div className="container-padding mx-auto">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-18">
+          
+          {/* Hype-Pay Brand Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" onClick={closeMobileMenu} className="flex items-center">
-              <img src={logo} alt="HYPE Logo" className="h-12 md:h-16 w-auto" />
-            </Link>
+            <BrandLogo />
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="flex items-baseline space-x-8">
-              {navLinks.map((link) => (
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className="hover:text-brand-cyan transition-colors px-3 py-2 rounded-md font-medium"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 relative ${
+                    active 
+                      ? 'text-[#3267D6] bg-[#EEF4FF]' 
+                      : 'text-[#182338] hover:text-[#3267D6] hover:bg-[#F7F8FA]'
+                  }`}
                 >
                   {link.name}
+                  {active && (
+                    <span className="absolute bottom-1 left-3.5 right-3.5 h-0.5 bg-[#3267D6] rounded-full" />
+                  )}
                 </Link>
-              ))}
-            </div>
+              );
+            })}
           </div>
 
-          {/* Auth Buttons & Mobile Toggle */}
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-4">
-              {user ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center gap-2 pl-2 pr-4 py-1.5 bg-brand-card border border-white/10 rounded-full hover:bg-slate-800 transition-colors"
-                  >
-                    <div className="w-7 h-7 bg-brand-cyan/20 text-brand-cyan rounded-full flex items-center justify-center text-xs font-bold">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
-                    <span className="text-sm font-semibold text-white">{user.name.split(' ')[0]}</span>
-                  </button>
-
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-brand-card border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 py-1">
-                      <Link
-                        to="/dashboard"
-                        onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
-                      >
-                        <LayoutDashboard className="w-4 h-4" /> Dashboard
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-slate-800 transition-colors"
-                      >
-                        <LogOut className="w-4 h-4" /> Log out
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <>
-                  <Link to="/login" className="bg-gradient-hype text-white px-8 py-2.5 rounded-full font-bold hover:opacity-90 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)] active:scale-95">
-                    Log In
-                  </Link>
-                </>
-              )}
+          {/* Right Action Button */}
+          <div className="flex items-center space-x-3">
+            <div className="hidden md:block">
+              <Link 
+                to="/contact" 
+                className="fintech-btn-primary text-sm inline-flex items-center gap-1.5 py-2.5 px-5 rounded-lg group shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+              >
+                <span>Get in Touch</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+              className="md:hidden p-2 text-[#182338] hover:bg-[#F7F8FA] rounded-lg border border-[#E5E9F0] transition-colors"
+              aria-label="Toggle navigation menu"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden glass-dark border-t border-white/10 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="px-4 py-6 space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={closeMobileMenu}
-                className="block text-lg font-medium hover:text-brand-cyan transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="pt-4 border-t border-white/10 flex flex-col gap-4">
-              {user ? (
-                <>
-                  <Link
-                    to="/dashboard"
-                    onClick={closeMobileMenu}
-                    className="flex items-center gap-3 text-slate-300 hover:text-white"
-                  >
-                    <LayoutDashboard size={20} /> Dashboard
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-3 text-red-400 hover:text-red-300 text-left"
-                  >
-                    <LogOut size={20} /> Log out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    onClick={closeMobileMenu}
-                    className="w-full bg-gradient-hype text-white px-6 py-3 rounded-full font-bold text-center hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-                  >
-                    Log In
-                  </Link>
-                </>
-              )}
-            </div>
+      {/* Mobile Menu Dropdown */}
+      <div 
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white border-t border-[#E5E9F0] ${
+          isMobileMenuOpen ? 'max-h-96 opacity-100 shadow-xl' : 'max-h-0 opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="px-5 py-5 space-y-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              onClick={closeMobileMenu}
+              className={`block px-3 py-2.5 rounded-lg text-base font-semibold transition-colors ${
+                isActive(link.path)
+                  ? 'text-[#3267D6] bg-[#EEF4FF]'
+                  : 'text-[#182338] hover:bg-[#F7F8FA]'
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          <div className="pt-3 border-t border-[#E5E9F0]">
+            <Link
+              to="/contact"
+              onClick={closeMobileMenu}
+              className="w-full fintech-btn-primary text-center py-3 text-sm flex items-center justify-center gap-1.5"
+            >
+              <span>Get in Touch</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };
